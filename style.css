@@ -61,14 +61,7 @@ body {
     gap: 8px;
 }
 
-.keyboard .row:first-child div>button {
-    flex: 1;
-}
-
-.keyboard .row:first-child button {
-    flex: 1;
-}
-
+.keyboard .row:first-child div>button,
 .keyboard .row.row:last-child button {
     flex: 1;
 }
