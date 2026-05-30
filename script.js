@@ -6,10 +6,10 @@ const pointButton = document.querySelector("#point");
 const delButton = document.querySelector("#delete");
 const clearButton = document.querySelector("#clear");
 
-let num1 = undefined;
-let num2 = undefined;
+let num1 = "";
+let num2 = "";
 let operator = "";
-let result = undefined;
+let result = "";
 
 function initializeEventListeners() {
     numButtons.forEach((button) => {
@@ -36,29 +36,29 @@ function initializeEventListeners() {
 }
 
 function add(a, b) {
-    a = Number.parseInt(a);
-    b = Number.parseInt(b);
+    a = Number.parseFloat(a);
+    b = Number.parseFloat(b);
 
     return a + b;
 }
 
 function subtract(a, b) {
-    a = Number.parseInt(a);
-    b = Number.parseInt(b);
+    a = Number.parseFloat(a);
+    b = Number.parseFloat(b);
 
     return a - b;
 }
 
 function multiply(a, b) {
-    a = Number.parseInt(a);
-    b = Number.parseInt(b);
+    a = Number.parseFloat(a);
+    b = Number.parseFloat(b);
 
     return a * b;
 }
 
 function divide(a, b) {
-    a = Number.parseInt(a);
-    b = Number.parseInt(b);
+    a = Number.parseFloat(a);
+    b = Number.parseFloat(b);
 
     return a / b;
 }
@@ -81,9 +81,9 @@ function operate(operator, a, b) {
 
 function updateNum(val) {
     if (!operator) {
-        num1 = val;
+        num1 += val;
     } else {
-        num2 = val;
+        num2 += val;
     }
 }
 
@@ -94,8 +94,8 @@ function updateOperator(opStr) {
     // reset calculation as if we're beginning a new calculation
     if (result) {
         num1 = result;
-        num2 = undefined;
-        result = undefined;
+        num2 = "";
+        result = "";
     }
 }
 
@@ -116,13 +116,18 @@ function updateDisplay(event) {
             display.textContent = result;
         }
     }
+
+    console.log(`Num1: ${num1}`);
+    console.log(`Num2: ${num2}`);
+    console.log(`Operator: ${operator}`);
+    console.log(`Result: ${result}`);
 }
 
 function clearCalc() {
-    num1 = undefined;
-    num2 = undefined;
+    num1 = "";
+    num2 = "";
     operator = "";
-    result = undefined;
+    result = "";
 
     display.textContent = "0";
 }
