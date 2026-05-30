@@ -31,6 +31,13 @@ body {
     margin-bottom: 16px;
     border-radius: 4px;
     font-size: 32px;
+    height: 32px;
+    overflow: hidden;
+    /* Hide text that exceeds the height */
+    white-space: nowrap;
+    /* Optional: Prevent text from wrapping to new lines */
+    text-overflow: ellipsis;
+    /* Optional: Add "..." for cut-off text */
 }
 
 .keyboard .row {
