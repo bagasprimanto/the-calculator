@@ -23,6 +23,7 @@ function initializeEventListeners() {
     operatorButtons.forEach((button) => button.addEventListener("click", (e) => {
         let opString = e.target.textContent;
         updateOperator(opString);
+        updateDisplay(e);
     }));
 
     equalsButton.addEventListener("click", (e) => {
@@ -88,15 +89,38 @@ function updateNum(val) {
 }
 
 function updateOperator(opStr) {
+    // If the user directly passes another operator,
+    // reset the calculation
+    if (num2) {
+        updateResult();
+        num1 = result;
+        num2 = "";
+        result = "";
+    }
+
     operator = opStr;
 
     // If the user directly presses another operator
-    // reset calculation as if we're beginning a new calculation
+    // reset calculation as if we're beginning a new calculation)
     if (result) {
         num1 = result;
         num2 = "";
         result = "";
     }
+
+    /*
+        1 + 2 + 2
+        3 + 
+        num1 = 3
+        num2 = ""
+        result = ""
+
+        1 + 1 = 2
+        2 + 
+        num1 = 2
+        num2 = ""
+        result = ""
+    */
 }
 
 function updateResult() {
@@ -104,7 +128,7 @@ function updateResult() {
 }
 
 function updateDisplay(event) {
-    if (!operator) {
+    if (!num2) {
         display.textContent = num1;
     } else {
         console.log(event.target);
