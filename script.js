@@ -75,6 +75,10 @@ function initializeEventListeners() {
                 updateResult();
                 updateDisplay(e);
             }
+
+            if (keyPressed === "C") {
+                clearCalc();
+            }
         }
     });
 }
