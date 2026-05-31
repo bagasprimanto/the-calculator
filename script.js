@@ -127,6 +127,10 @@ function updateResult() {
     result = operate(operator, num1, num2);
 }
 
+function roundNumber(num) {
+    return Math.round(num * Math.pow(10, 6)) / Math.pow(10, 6);
+}
+
 function updateDisplay(event) {
     if (!num2) {
         display.textContent = num1;
@@ -137,7 +141,7 @@ function updateDisplay(event) {
         if (classes.includes("number")) {
             display.textContent = num2;
         } else {
-            display.textContent = result;
+            display.textContent = roundNumber(result);
         }
     }
 
