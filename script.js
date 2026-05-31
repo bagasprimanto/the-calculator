@@ -66,6 +66,11 @@ function initializeEventListeners() {
                 updateDisplay(e);
             }
 
+            if (keyPressed === "Backspace") {
+                handleDelete();
+                updateDisplay(e);
+            }
+
             if (keyPressed === "Enter" || keyPressed === "=") {
                 updateResult();
                 updateDisplay(e);
