@@ -2,11 +2,10 @@ const display = document.querySelector(".display");
 const numButtons = document.querySelectorAll(".number");
 const operatorButtons = document.querySelectorAll(".operator");
 const equalsButton = document.querySelector("#equals");
-const pointButton = document.querySelector("#point");
 const delButton = document.querySelector("#delete");
 const clearButton = document.querySelector("#clear");
 
-let num1 = "";
+let num1 = "0";
 let num2 = "";
 let operator = "";
 let result = "";
@@ -111,9 +110,17 @@ function updateNum(val) {
     }
 
     if (!operator) {
-        num1 += val;
+        if (num1 === "0") {
+            num1 = val;
+        } else {
+            num1 += val;
+        }
     } else {
-        num2 += val;
+        if (num2 === "0") {
+            num2 = val;
+        } else {
+            num2 += val;
+        }
     }
 }
 
@@ -175,7 +182,7 @@ function updateDisplay(event) {
 }
 
 function clearCalc() {
-    num1 = "";
+    num1 = 0;
     num2 = "";
     operator = "";
     result = "";
