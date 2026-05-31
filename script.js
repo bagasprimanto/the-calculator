@@ -57,11 +57,19 @@ function initializeEventListeners() {
                 updateDisplay(e);
             }
 
+            if (keyPressed === "+" || keyPressed === "-" || keyPressed === "*" || keyPressed === "/") {
+                if (keyPressed === "*") {
+                    updateOperator("X");
+                } else {
+                    updateOperator(keyPressed);
+                }
+                updateDisplay(e);
+            }
+
             if (keyPressed === "Enter" || keyPressed === "=") {
                 updateResult();
                 updateDisplay(e);
             }
-            console.log(keyPressed);
         }
     });
 }
