@@ -72,7 +72,3 @@ body {
 .keyboard .row.row:last-child button {
     flex: 1;
 }
-
-.keyboard button#equals {
-    flex: 2.8 0 0;
-}
