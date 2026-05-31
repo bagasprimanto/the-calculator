@@ -30,6 +30,10 @@ function initializeEventListeners() {
         }
     }));
 
+    delButton.addEventListener("click", () => {
+        handleDelete();
+    });
+
     equalsButton.addEventListener("click", (e) => {
         if (!error) {
             updateResult();
@@ -103,6 +107,7 @@ function updateNum(val) {
     // If the user directly presses another number after calculating a result
     // reset calculation as if we're beginning a new calculation)
     console.log(`${result}`);
+    // We compare result with number since result comes from operate function which produces number type
     if (result || result === 0) {
         console.log("We have a result!");
         num1 = "0";
