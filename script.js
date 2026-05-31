@@ -81,6 +81,15 @@ function operate(operator, a, b) {
 }
 
 function updateNum(val) {
+    // If the user directly presses another number after calculating a result
+    // reset calculation as if we're beginning a new calculation)
+    if (result) {
+        num1 = "";
+        num2 = "";
+        operator = "";
+        result = "";
+    }
+
     if (!operator) {
         num1 += val;
     } else {
