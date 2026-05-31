@@ -30,8 +30,9 @@ function initializeEventListeners() {
         }
     }));
 
-    delButton.addEventListener("click", () => {
+    delButton.addEventListener("click", (e) => {
         handleDelete();
+        updateDisplay(e);
     });
 
     equalsButton.addEventListener("click", (e) => {
@@ -103,10 +104,27 @@ function handleDivideByZero() {
     error = true;
 }
 
+function handleDelete() {
+    if (!operator) {
+        // Update num1 value
+        // Case if "." is pressed
+        if (num1.length > 1) {
+            num1 = num1.slice(0, -1);
+        } else {
+            num1 = "0";
+        }
+    } else {
+        if (num2.length > 1) {
+            num2 = num2.slice(0, -1);
+        } else {
+            num2 = "0";
+        }
+    }
+}
+
 function updateNum(val) {
     // If the user directly presses another number after calculating a result
     // reset calculation as if we're beginning a new calculation)
-    console.log(`${result}`);
     // We compare result with number since result comes from operate function which produces number type
     if (result || result === 0) {
         console.log("We have a result!");
@@ -196,7 +214,7 @@ function updateDisplay(event) {
             console.log(event.target);
             let classes = Array.from(event.target.classList);
             console.log(classes);
-            if (classes.includes("number")) {
+            if (classes.includes("number") || classes.includes("action")) {
                 display.textContent = num2;
             } else {
                 display.textContent = roundNumber(result);
@@ -212,7 +230,7 @@ function updateDisplay(event) {
 }
 
 function clearCalc() {
-    num1 = 0;
+    num1 = "0";
     num2 = "";
     operator = "";
     result = "";
