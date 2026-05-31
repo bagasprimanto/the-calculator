@@ -124,7 +124,9 @@ function updateOperator(opStr) {
 }
 
 function updateResult() {
-    result = operate(operator, num1, num2);
+    if (operator, num1, num2) {
+        result = operate(operator, num1, num2);
+    }
 }
 
 function roundNumber(num) {
@@ -133,13 +135,13 @@ function roundNumber(num) {
 
 function updateDisplay(event) {
     if (!num2) {
-        display.textContent = num1;
+        display.textContent = roundNumber(num1);
     } else {
         console.log(event.target);
         let classes = Array.from(event.target.classList);
         console.log(classes);
         if (classes.includes("number")) {
-            display.textContent = num2;
+            display.textContent = roundNumber(num2);
         } else {
             display.textContent = roundNumber(result);
         }
