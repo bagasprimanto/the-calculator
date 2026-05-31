@@ -102,24 +102,49 @@ function handleDivideByZero() {
 function updateNum(val) {
     // If the user directly presses another number after calculating a result
     // reset calculation as if we're beginning a new calculation)
-    if (result) {
-        num1 = "";
+    console.log(`${result}`);
+    if (result || result === 0) {
+        console.log("We have a result!");
+        num1 = "0";
         num2 = "";
         operator = "";
         result = "";
     }
 
     if (!operator) {
-        if (num1 === "0") {
-            num1 = val;
+        // Update num1 value
+        // Case if "." is pressed
+        if (val === ".") {
+            if (num1 === "0" && !num1.includes(".")) {
+                num1 += val;
+            } else {
+                if (!num1.includes(".")) {
+                    num1 += val;
+                }
+            }
         } else {
-            num1 += val;
+            if (num1 === "0") {
+                console.log("zero!");
+                num1 = val;
+            } else {
+                num1 += val;
+            }
         }
     } else {
-        if (num2 === "0") {
-            num2 = val;
+        if (val === ".") {
+            if (num2 === "0" && !num2.includes(".")) {
+                num2 += val;
+            } else {
+                if (!num2.includes(".")) {
+                    num2 += val;
+                }
+            }
         } else {
-            num2 += val;
+            if (num2 === "0") {
+                num2 = val;
+            } else {
+                num2 += val;
+            }
         }
     }
 }
@@ -161,13 +186,13 @@ function updateDisplay(event) {
         display.textContent = result;
     } else {
         if (!num2) {
-            display.textContent = roundNumber(num1);
+            display.textContent = num1;
         } else {
             console.log(event.target);
             let classes = Array.from(event.target.classList);
             console.log(classes);
             if (classes.includes("number")) {
-                display.textContent = roundNumber(num2);
+                display.textContent = num2;
             } else {
                 display.textContent = roundNumber(result);
             }
