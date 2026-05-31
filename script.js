@@ -135,21 +135,8 @@ function updateOperator(opStr) {
         num1 = result;
         num2 = "";
         result = "";
+        // no need to update operator here since it's been updated already
     }
-
-    /*
-        1 + 2 + 2
-        3 + 
-        num1 = 3
-        num2 = ""
-        result = ""
-
-        1 + 1 = 2
-        2 + 
-        num1 = 2
-        num2 = ""
-        result = ""
-    */
 }
 
 function updateResult() {
