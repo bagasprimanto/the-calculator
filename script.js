@@ -10,25 +10,32 @@ let num1 = "";
 let num2 = "";
 let operator = "";
 let result = "";
+let error = false;
 
 function initializeEventListeners() {
     numButtons.forEach((button) => {
         button.addEventListener("click", (e) => {
-            let num = e.target.textContent;
-            updateNum(num);
-            updateDisplay(e);
+            if (!error) {
+                let num = e.target.textContent;
+                updateNum(num);
+                updateDisplay(e);
+            }
         })
     });
 
     operatorButtons.forEach((button) => button.addEventListener("click", (e) => {
-        let opString = e.target.textContent;
-        updateOperator(opString);
-        updateDisplay(e);
+        if (!error) {
+            let opString = e.target.textContent;
+            updateOperator(opString);
+            updateDisplay(e);
+        }
     }));
 
     equalsButton.addEventListener("click", (e) => {
-        updateResult();
-        updateDisplay(e);
+        if (!error) {
+            updateResult();
+            updateDisplay(e);
+        }
     })
 
     clearButton.addEventListener("click", (e) => {
@@ -64,8 +71,13 @@ function divide(a, b) {
     return a / b;
 }
 
-function operate(operator, a, b) {
-    switch (operator) {
+function operate(opr, a, b) {
+    if (opr === "/" && b === "0") {
+        handleDivideByZero();
+        return "Cannot divide by 0";
+    }
+
+    switch (opr) {
         case "+":
             return add(a, b);
             break;
@@ -78,6 +90,14 @@ function operate(operator, a, b) {
         case "/":
             return divide(a, b);
     }
+}
+
+function handleDivideByZero() {
+    console.log("Cannot divide by 0.");
+    num1 = "";
+    num2 = "";
+    operator = "";
+    error = true;
 }
 
 function updateNum(val) {
@@ -143,18 +163,23 @@ function roundNumber(num) {
 }
 
 function updateDisplay(event) {
-    if (!num2) {
-        display.textContent = roundNumber(num1);
+    if (error) {
+        display.textContent = result;
     } else {
-        console.log(event.target);
-        let classes = Array.from(event.target.classList);
-        console.log(classes);
-        if (classes.includes("number")) {
-            display.textContent = roundNumber(num2);
+        if (!num2) {
+            display.textContent = roundNumber(num1);
         } else {
-            display.textContent = roundNumber(result);
+            console.log(event.target);
+            let classes = Array.from(event.target.classList);
+            console.log(classes);
+            if (classes.includes("number")) {
+                display.textContent = roundNumber(num2);
+            } else {
+                display.textContent = roundNumber(result);
+            }
         }
     }
+
 
     console.log(`Num1: ${num1}`);
     console.log(`Num2: ${num2}`);
@@ -167,6 +192,7 @@ function clearCalc() {
     num2 = "";
     operator = "";
     result = "";
+    error = false;
 
     display.textContent = "0";
 }
