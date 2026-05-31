@@ -76,7 +76,7 @@ function initializeEventListeners() {
                 updateDisplay(e);
             }
 
-            if (keyPressed === "C") {
+            if (keyPressed === "c") {
                 clearCalc();
             }
         }
