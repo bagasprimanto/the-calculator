@@ -31,8 +31,10 @@ function initializeEventListeners() {
     }));
 
     delButton.addEventListener("click", (e) => {
-        handleDelete();
-        updateDisplay(e);
+        if (!error) {
+            handleDelete();
+            updateDisplay(e);
+        }
     });
 
     equalsButton.addEventListener("click", (e) => {
@@ -45,7 +47,25 @@ function initializeEventListeners() {
     clearButton.addEventListener("click", (e) => {
         clearCalc();
     })
+
+    document.addEventListener("keydown", (e) => {
+        if (!error) {
+            const keyPressed = event.key;
+
+            if (isFinite(keyPressed) || keyPressed === ".") {
+                updateNum(keyPressed);
+                updateDisplay(e);
+            }
+
+            if (keyPressed === "Enter" || keyPressed === "=") {
+                updateResult();
+                updateDisplay(e);
+            }
+            console.log(keyPressed);
+        }
+    });
 }
+
 
 function add(a, b) {
     a = Number.parseFloat(a);
@@ -98,7 +118,7 @@ function operate(opr, a, b) {
 
 function handleDivideByZero() {
     console.log("Cannot divide by 0.");
-    num1 = "";
+    num1 = "0";
     num2 = "";
     operator = "";
     error = true;
@@ -155,8 +175,13 @@ function updateNum(val) {
         }
     } else {
         if (val === ".") {
-            if (num2 === "0" && !num2.includes(".")) {
-                num2 += val;
+            if (!num2.includes(".")) {
+                if (num2 != 0) {
+                    num2 += val;
+                } else {
+                    num2 = 0;
+                    num2 += val;
+                }
             } else {
                 if (!num2.includes(".")) {
                     num2 += val;
@@ -211,14 +236,23 @@ function updateDisplay(event) {
         if (!num2) {
             display.textContent = num1;
         } else {
-            console.log(event.target);
-            let classes = Array.from(event.target.classList);
-            console.log(classes);
-            if (classes.includes("number") || classes.includes("action")) {
-                display.textContent = num2;
+            if (event.key) {
+                if (isFinite(event.key) || event.key === ".") {
+                    display.textContent = num2;
+                } else {
+                    display.textContent = roundNumber(result);
+                }
             } else {
-                display.textContent = roundNumber(result);
+                // console.log(event.target);
+                let classes = Array.from(event.target.classList);
+                // console.log(classes);
+                if (classes.includes("number") || classes.includes("action")) {
+                    display.textContent = num2;
+                } else {
+                    display.textContent = roundNumber(result);
+                }
             }
+
         }
     }
 
